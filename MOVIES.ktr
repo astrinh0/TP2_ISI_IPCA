@@ -518,7 +518,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>C:\Users\jngve\Desktop\ISI\tmdb_5000_movies.csv</filename>
+    <filename>D:\Escola\TP2ISI\tmdb_5000_movies.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -606,6 +606,17 @@
         <decimal>.</decimal>
         <group>,</group>
         <length>86</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>overview</name>
+        <type>String</type>
+        <format/>
+        <currency>£</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>1000</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
