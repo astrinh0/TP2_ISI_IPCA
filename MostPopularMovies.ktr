@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>teste</name>
+    <name>MostPopularMovies</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -427,16 +427,16 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2021/12/23 15:43:35.707</created_date>
+    <created_date>2021/12/26 16:18:22.783</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2021/12/23 15:43:35.707</modified_date>
+    <modified_date>2021/12/26 16:18:22.783</modified_date>
     <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>SQL</name>
+    <name>SQL Server</name>
     <server>localhost</server>
     <type>MSSQL</type>
     <access>Native</access>
@@ -492,122 +492,73 @@
   </connection>
   <order>
     <hop>
-      <from>Movies csv</from>
-      <to>Sort movies</to>
+      <from>Movies</from>
+      <to>Sort By Vote Count</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Credits csv</from>
-      <to>Sort credits</to>
+      <from>Sort By Vote Count</from>
+      <to>Filter Top Movies</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort movies</from>
-      <to>Merge join</to>
+      <from>Credits</from>
+      <to>Sort Credits By id </to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Select values</from>
-      <to>Table output</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Sort credits</from>
-      <to>Merge join</to>
+      <from>Filter Top Movies</from>
+      <to>Sort Top Movies By id</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Merge join</from>
-      <to>Select values</to>
+      <to>Top Movies XML</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort Top Movies By id</from>
+      <to>Select Top Movies Id</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort Credits By id </from>
+      <to>Select Credits</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select Top Movies Id</from>
+      <to>Top Movies Ids XML</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select Credits</from>
+      <to>Credits JSON</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Top Movies Ids XML</from>
+      <to>Merge join</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Credits JSON</from>
+      <to>Merge join</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Top Movies XML</from>
+      <to>Select Title</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select Title</from>
+      <to>Insert into SQL Table</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Credits csv</name>
-    <type>CsvInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <filename>D:\Escola\TP2ISI\tmdb_5000_credits.csv</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>,</separator>
-    <enclosure>"</enclosure>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <encoding/>
-    <fields>
-      <field>
-        <name>movie_id</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>£</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>title</name>
-        <type>String</type>
-        <format/>
-        <currency>£</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>86</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>cast</name>
-        <type>String</type>
-        <format/>
-        <currency>£</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>35904</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>crew</name>
-        <type>String</type>
-        <format/>
-        <currency>£</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>62970</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>736</xloc>
-      <yloc>16</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Movies csv</name>
+    <name>Movies</name>
     <type>CsvInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -649,7 +600,7 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>230</length>
+        <length>190</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -660,7 +611,7 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>138</length>
+        <length>92</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -682,7 +633,7 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>3783</length>
+        <length>1181</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -704,7 +655,7 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>86</length>
+        <length>62</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -715,7 +666,7 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>1000</length>
+        <length>804</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -737,7 +688,7 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>1155</length>
+        <length>502</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -748,7 +699,7 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>517</length>
+        <length>188</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -776,13 +727,13 @@
       </field>
       <field>
         <name>runtime</name>
-        <type>Number</type>
-        <format>#.#</format>
+        <type>Integer</type>
+        <format>#</format>
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>5</length>
-        <precision>1</precision>
+        <length>15</length>
+        <precision>0</precision>
         <trim_type>none</trim_type>
       </field>
       <field>
@@ -792,7 +743,7 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>474</length>
+        <length>434</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -803,7 +754,7 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>15</length>
+        <length>8</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -814,7 +765,7 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>252</length>
+        <length>96</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -825,7 +776,7 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>86</length>
+        <length>62</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -836,7 +787,7 @@
         <currency>£</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>4</length>
+        <length>3</length>
         <precision>1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -861,13 +812,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>560</xloc>
-      <yloc>16</yloc>
+      <xloc>16</xloc>
+      <yloc>32</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Sort movies</name>
+    <name>Sort By Vote Count</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -886,8 +837,8 @@
     <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>id</name>
-        <ascending>Y</ascending>
+        <name>vote_count</name>
+        <ascending>N</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
         <collator_strength>0</collator_strength>
@@ -903,13 +854,162 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>560</xloc>
-      <yloc>144</yloc>
+      <xloc>144</xloc>
+      <yloc>32</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Sort credits</name>
+    <name>Filter Top Movies</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Sort Top Movies By id</send_true_to>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <leftvalue>vote_count</leftvalue>
+            <function>&gt;=</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>Integer</type>
+              <text>2500</text>
+              <length>-1</length>
+              <precision>0</precision>
+              <isnull>N</isnull>
+              <mask>####0;-####0</mask>
+            </value>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>vote_average</leftvalue>
+            <function>&gt;=</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>Number</type>
+              <text>7.5</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask>####0.0#########;-####0.0#########</mask>
+            </value>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>272</xloc>
+      <yloc>32</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Credits</name>
+    <type>CsvInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <filename>D:\Escola\TP2ISI\tmdb_5000_credits.csv</filename>
+    <filename_field/>
+    <rownum_field/>
+    <include_filename>N</include_filename>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <header>Y</header>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>Y</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>N</newline_possible>
+    <encoding/>
+    <fields>
+      <field>
+        <name>movie_id</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>£</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>title</name>
+        <type>String</type>
+        <format/>
+        <currency>£</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>62</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>cast</name>
+        <type>String</type>
+        <format/>
+        <currency>£</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>26128</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>crew</name>
+        <type>String</type>
+        <format/>
+        <currency>£</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>62970</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>272</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort Credits By id </name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -945,8 +1045,118 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>736</xloc>
-      <yloc>144</yloc>
+      <xloc>416</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort Top Movies By id</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>id</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>416</xloc>
+      <yloc>32</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select Top Movies Id</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>id</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>560</xloc>
+      <yloc>32</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select Credits</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>movie_id</name>
+        <rename>id</rename>
+      </field>
+      <field>
+        <name>title</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>560</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -961,36 +1171,15 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <join_type>INNER</join_type>
-    <step1>Sort movies</step1>
-    <step2>Sort credits</step2>
+    <join_type>LEFT OUTER</join_type>
+    <step1>Top Movies Ids XML</step1>
+    <step2>Credits JSON</step2>
     <keys_1>
-      <key>budget</key>
-      <key>genres</key>
-      <key>homepage</key>
       <key>id</key>
-      <key>keywords</key>
-      <key>original_language</key>
-      <key>original_title</key>
-      <key>overview</key>
-      <key>popularity</key>
-      <key>production_companies</key>
-      <key>production_countries</key>
-      <key>release_date</key>
-      <key>revenue</key>
-      <key>runtime</key>
-      <key>spoken_languages</key>
-      <key>status</key>
-      <key>tagline</key>
-      <key>title</key>
-      <key>vote_average</key>
-      <key>vote_count</key>
     </keys_1>
     <keys_2>
-      <key>movie_id</key>
+      <key>id</key>
       <key>title</key>
-      <key>cast</key>
-      <key>crew</key>
     </keys_2>
     <attributes/>
     <cluster_schema/>
@@ -1001,14 +1190,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>640</xloc>
-      <yloc>240</yloc>
+      <xloc>864</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Select values</name>
-    <type>SelectValues</type>
+    <name>Top Movies XML</name>
+    <type>XMLOutput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1017,167 +1206,39 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
+    <encoding>UTF-8</encoding>
+    <name_space/>
+    <xml_main_element>Rows</xml_main_element>
+    <xml_repeat_element>Row</xml_repeat_element>
+    <file>
+      <name>D:\Escola\TP2ISI\TopMovies\TopMoviesJoin</name>
+      <extention>xml</extention>
+      <servlet_output>N</servlet_output>
+      <do_not_open_newfile_init>N</do_not_open_newfile_init>
+      <split>N</split>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <omit_null_values>N</omit_null_values>
+      <date_time_format/>
+      <add_to_result_filenames>N</add_to_result_filenames>
+      <zipped>N</zipped>
+      <splitevery>0</splitevery>
+    </file>
     <fields>
       <field>
-        <name>budget</name>
-        <rename/>
-      </field>
-      <field>
-        <name>genres</name>
-        <rename/>
-      </field>
-      <field>
-        <name>homepage</name>
-        <rename/>
-      </field>
-      <field>
-        <name>id</name>
-        <rename>movie_id</rename>
-      </field>
-      <field>
-        <name>keywords</name>
-        <rename/>
-      </field>
-      <field>
-        <name>original_language</name>
-        <rename/>
-      </field>
-      <field>
-        <name>original_title</name>
-        <rename/>
-      </field>
-      <field>
-        <name>overview</name>
-        <rename/>
-      </field>
-      <field>
-        <name>popularity</name>
-        <rename/>
-      </field>
-      <field>
-        <name>production_companies</name>
-        <rename/>
-      </field>
-      <field>
-        <name>production_countries</name>
-        <rename/>
-      </field>
-      <field>
-        <name>release_date</name>
-        <rename/>
-      </field>
-      <field>
-        <name>revenue</name>
-        <rename/>
-      </field>
-      <field>
-        <name>runtime</name>
-        <rename/>
-      </field>
-      <field>
-        <name>spoken_languages</name>
-        <rename/>
-      </field>
-      <field>
-        <name>status</name>
-        <rename/>
-      </field>
-      <field>
-        <name>tagline</name>
-        <rename/>
-      </field>
-      <field>
+        <content_type>Element</content_type>
         <name>title</name>
-        <rename/>
+        <element/>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <length>62</length>
+        <precision>-1</precision>
       </field>
-      <field>
-        <name>vote_average</name>
-        <rename/>
-      </field>
-      <field>
-        <name>vote_count</name>
-        <rename/>
-      </field>
-      <field>
-        <name>movie_id</name>
-        <rename>credits_id</rename>
-      </field>
-      <field>
-        <name>title_1</name>
-        <rename>title</rename>
-      </field>
-      <field>
-        <name>cast</name>
-        <rename/>
-      </field>
-      <field>
-        <name>crew</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-      <remove>
-        <name>budget</name>
-      </remove>
-      <remove>
-        <name>genres</name>
-      </remove>
-      <remove>
-        <name>homepage</name>
-      </remove>
-      <remove>
-        <name>keywords</name>
-      </remove>
-      <remove>
-        <name>original_language</name>
-      </remove>
-      <remove>
-        <name>original_title</name>
-      </remove>
-      <remove>
-        <name>overview</name>
-      </remove>
-      <remove>
-        <name>popularity</name>
-      </remove>
-      <remove>
-        <name>production_companies</name>
-      </remove>
-      <remove>
-        <name>production_countries</name>
-      </remove>
-      <remove>
-        <name>release_date</name>
-      </remove>
-      <remove>
-        <name>revenue</name>
-      </remove>
-      <remove>
-        <name>runtime</name>
-      </remove>
-      <remove>
-        <name>spoken_languages</name>
-      </remove>
-      <remove>
-        <name>status</name>
-      </remove>
-      <remove>
-        <name>tagline</name>
-      </remove>
-      <remove>
-        <name>title</name>
-      </remove>
-      <remove>
-        <name>vote_average</name>
-      </remove>
-      <remove>
-        <name>vote_count</name>
-      </remove>
-      <remove>
-        <name>cast</name>
-      </remove>
-      <remove>
-        <name>crew</name>
-      </remove>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -1188,13 +1249,126 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>640</xloc>
-      <yloc>336</yloc>
+      <xloc>976</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Table output</name>
+    <name>Top Movies Ids XML</name>
+    <type>XMLOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <encoding>UTF-8</encoding>
+    <name_space/>
+    <xml_main_element>Rows</xml_main_element>
+    <xml_repeat_element>Row</xml_repeat_element>
+    <file>
+      <name>D:\Escola\TP2ISI\TopMovies\topMovies</name>
+      <extention>xml</extention>
+      <servlet_output>N</servlet_output>
+      <do_not_open_newfile_init>N</do_not_open_newfile_init>
+      <split>N</split>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <omit_null_values>N</omit_null_values>
+      <date_time_format/>
+      <add_to_result_filenames>N</add_to_result_filenames>
+      <zipped>N</zipped>
+      <splitevery>0</splitevery>
+    </file>
+    <fields>
+      <field>
+        <content_type>Element</content_type>
+        <name>id</name>
+        <element/>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>688</xloc>
+      <yloc>32</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Credits JSON</name>
+    <type>JsonOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <outputValue>outputValue</outputValue>
+    <jsonBloc>data</jsonBloc>
+    <nrRowsInBloc>10000000000</nrRowsInBloc>
+    <operation_type>writetofile</operation_type>
+    <compatibility_mode>N</compatibility_mode>
+    <encoding>UTF-8</encoding>
+    <addtoresult>N</addtoresult>
+    <file>
+      <name>D:\Escola\TP2ISI\TopMovies\credits</name>
+      <extention>json</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <create_parent_folder>N</create_parent_folder>
+      <DoNotOpenNewFileInit>N</DoNotOpenNewFileInit>
+      <servlet_output>N</servlet_output>
+    </file>
+    <fields>
+      <field>
+        <name>id</name>
+        <element>id</element>
+      </field>
+      <field>
+        <name>title</name>
+        <element>title</element>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>688</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Insert into SQL Table</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1204,11 +1378,11 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>SQL</connection>
+    <connection>SQL Server</connection>
     <schema>dbo</schema>
-    <table>MergedCSV</table>
+    <table>TopMovies</table>
     <commit>1000</commit>
-    <truncate>N</truncate>
+    <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
     <specify_fields>N</specify_fields>
@@ -1232,8 +1406,40 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>640</xloc>
-      <yloc>432</yloc>
+      <xloc>1200</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select Title</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>title</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1088</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
